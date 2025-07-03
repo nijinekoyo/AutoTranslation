@@ -2,7 +2,10 @@ module github.com/nijinekoyo/AutoTranslation
 
 go 1.24.2
 
-require github.com/xuri/excelize/v2 v2.9.1
+require (
+	github.com/HyacinthusAcademy/yuzuhttp v0.2.1
+	github.com/xuri/excelize/v2 v2.9.1
+)
 
 require (
 	github.com/richardlehane/mscfb v1.0.4 // indirect
