@@ -18,4 +18,5 @@
 *.xlsx
 *.xls
 
+build/
 logs/
