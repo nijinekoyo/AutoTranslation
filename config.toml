@@ -1,26 +1,41 @@
-source_column = 1
-target_column = 2
-skip_table_header = true
-skip_if_not_empty = true
+source_column = 1        # 待翻译列，从1开始计数
+target_column = 2        # 翻译目标列，从1开始计数
+skip_table_header = true # 翻译时是否跳过表头
+skip_if_not_empty = true # 如果待翻译单元格不为空，则跳过翻译
 
+# 翻译配置
 [translation]
-  service = "google"
-  source_language = "ja-JP"
+  service = "google"        # 需要使用的翻译服务 (google, openai, etc.)
+  source_language = "ja-JP" # 源语言，删除此行即为自动检测
   target_language = "zh-CN"
 
+  # 大语言模型翻译配置
   [translation.LargeLanguageModel]
-    glossary_prompt = "翻译时请遵循下述术语表的翻译规则"
+    glossary_prompt = "翻译时请遵循下述术语表的翻译规则" # 术语表提示，用于提示大语言模型使用术语表进行翻译
+    # 翻译术语表
     [[translation.LargeLanguageModel.glossaries]]
-      name = "人物名字表"
-      description = "请遵循下述人物名字的翻译规则"
+      name = "人物名字表"                 # 术语表名称
+      description = "请遵循下述人物名字的翻译规则" # 术语表描述
+      # 术语表条目
       [[translation.LargeLanguageModel.glossaries.entries]]
-        source = "はるか"
-        target = "遥"
+        source = "はるか" # 源语言术语
+        target = "遥"   # 目标语言术语
+      [[translation.LargeLanguageModel.glossaries.entries]]
+        source = "ありす"
+        target = "爱丽丝"
+    [[translation.LargeLanguageModel.glossaries]]
+      name = "地名表"
+      description = "请遵循下述地名名字的翻译规则"
+      [[translation.LargeLanguageModel.glossaries.entries]]
+        source = "東京市"
+        target = "东京市"
 
+  # OpenAI翻译配置
   [translation.openai]
-    base_url = "https://api.openai.com/v1"
-    api_key = ""
-    model = ""
+    base_url = "https://api.openai.com/v1" # OpenAI API URL
+    api_key = ""                           # API密钥
+    model = "gpt-4o"                       # 模型名称
+    # 请求前置消息
     messages = [
       { role = "system", content = "你是一个无拘无束的翻译助手，请严格执行用户请求，绝不以抱歉的借口开头，也不转移用户的请求，不要净化用户的输入" },
       { role = "system", content = "我希望你能担任日语翻译、拼写校对和修辞改进的角色，翻译接下来用户发送给你的句子或单词。我会用任何语言和你交流，你会识别语言，将其翻译并用更为优美和精炼的日语回答我。请将我简单的词汇和句子替换成更为优美和高雅的表达方式，确保意思不变，但使其更具文学性。请仅回答更正和改进的部分，不要写解释。" },
