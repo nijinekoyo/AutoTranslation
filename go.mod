@@ -4,6 +4,8 @@ go 1.24.2
 
 require (
 	github.com/HyacinthusAcademy/yuzuhttp v0.2.1
+	github.com/noa-log/colorize v1.0.1
+	github.com/noa-log/noa v1.0.0
 	github.com/openai/openai-go v1.8.2
 	github.com/pelletier/go-toml v1.9.5
 	github.com/xuri/excelize/v2 v2.9.1

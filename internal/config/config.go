@@ -10,7 +10,15 @@ package config
 
 // 配置文件结构
 type Config struct {
+	SourceColumn int `toml:"source_column"` // 待翻译列，从1开始计数
+	TargetColumn int `toml:"target_column"` // 翻译目标列，从1开始计数
+
+	SkipTableHeader bool `toml:"skip_table_header"` // 翻译时是否跳过表头
+	SkipIfNotEmpty  bool `toml:"skip_if_not_empty"` // 如果待翻译单元格不为空，则跳过翻译
+
 	Translation struct {
+		Service string `toml:"service"` // 需要使用的翻译服务 (google, openai, etc.)
+
 		// 语言配置
 		SourceLanguage *string `toml:"source_language"` // 源语言，为nil表示自动检测
 		TargetLanguage string  `toml:"target_language"` // 目标语言
@@ -28,8 +36,9 @@ type Config struct {
 		} // 大语言模型翻译配置
 
 		OpenAI struct {
-			APIKey   string `toml:"api_key"` // API密钥
-			Model    string `toml:"model"`   // 模型名称
+			BaseURL  string `toml:"base_url"` // OpenAI API URL
+			APIKey   string `toml:"api_key"`  // API密钥
+			Model    string `toml:"model"`    // 模型名称
 			Messages []struct {
 				Role    string `toml:"role"`    // 消息角色 (user, system, developer, assistant)
 				Content string `toml:"content"` // 消息内容 (消息需要约束返回必须是翻译后的文本，而且必须是纯文本，不受语言配置影响)

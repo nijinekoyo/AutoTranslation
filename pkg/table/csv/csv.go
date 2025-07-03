@@ -1,7 +1,7 @@
 /*
  * @Author: nijineko
  * @Date: 2025-07-03 15:33:36
- * @LastEditTime: 2025-07-03 15:51:07
+ * @LastEditTime: 2025-07-03 20:45:44
  * @LastEditors: nijineko
  * @Description: CSV表格数据处理实现
  * @FilePath: \AutoTranslation\pkg\table\csv\csv.go
@@ -84,6 +84,20 @@ func (c *CSVTable) Write(Datas [][]string) error {
 	if c.isClosed {
 		return os.ErrClosed
 	}
+
+	// 关闭旧的文件句柄
+	if err := c.fileHandle.Close(); err != nil {
+		return err
+	}
+
+	// 创建一个新的文件句柄以覆盖数据
+	NewFileHandle, err := os.Create(c.fileHandle.Name())
+	if err != nil {
+		return err
+	}
+
+	c.fileHandle = NewFileHandle
+	c.writer = csv.NewWriter(NewFileHandle)
 
 	for _, Data := range Datas {
 		if err := c.writer.Write(Data); err != nil {

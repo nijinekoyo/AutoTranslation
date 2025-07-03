@@ -37,6 +37,7 @@ func New(APIKey string) *OpenAITranslator {
 		APIKey: APIKey,
 		client: openai.NewClient(
 			option.WithAPIKey(APIKey),
+			option.WithBaseURL(config.Get().Translation.OpenAI.BaseURL),
 		),
 	}
 }

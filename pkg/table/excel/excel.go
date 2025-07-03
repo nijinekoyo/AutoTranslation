@@ -1,7 +1,7 @@
 /*
  * @Author: nijineko
  * @Date: 2025-07-03 15:54:30
- * @LastEditTime: 2025-07-03 16:22:34
+ * @LastEditTime: 2025-07-03 18:26:31
  * @LastEditors: nijineko
  * @Description: Excel表格数据处理实现
  * @FilePath: \AutoTranslation\pkg\table\excel\excel.go
@@ -55,7 +55,7 @@ func New(FilePath string) (*ExcelTable, error) {
  * @description: 关闭Excel表格处理实例
  * @return {error} 错误信息
  */
-func (e *ExcelTable) Cose() error {
+func (e *ExcelTable) Close() error {
 	// 保存Excel文件
 	if err := e.excelizeHandle.SaveAs(e.filePath); err != nil {
 		return err
